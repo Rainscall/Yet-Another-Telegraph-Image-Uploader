@@ -60,6 +60,54 @@
         .copyButtom:hover {
             background: none;
         }
+        .lds-ripple {
+          display: inline-block;
+          position: relative;
+          width: 24px;
+          height: 16px;
+          margin-left: 8px;
+        }
+        .lds-ripple div {
+          position: absolute;
+          border: 4px solid #FFF;
+          opacity: 1;
+          border-radius: 50%;
+          animation: lds-ripple 1s cubic-bezier(0, 0.31, 0, 0.69) infinite;
+        }
+        .lds-ripple div:nth-child(2) {
+          animation-delay: -0.5s;
+        }
+        @keyframes lds-ripple {
+          0% {
+            top: 12px;
+            left: 12px;
+            width: 0;
+            height: 0;
+            opacity: 0;
+          }
+          4.9% {
+            top: 12px;
+            left: 12px;
+            width: 0;
+            height: 0;
+            opacity: 0;
+          }
+          5% {
+            top: 12px;
+            left: 12px;
+            width: 0;
+            height: 0;
+            opacity: 1;
+          }
+          100% {
+            top: 0px;
+            left: 0px;
+            width: 24px;
+            height: 24px;
+            opacity: 0;
+          }
+        }
+
     </style>
 
 <div style="background-color:#ffffffab;min-height:100svh;width:100vw;">
@@ -68,8 +116,6 @@
             <h1 style="margin-left:0.3em;">Telegraph Image Uploader</h1>
             <div class="subPart">
             <a href="javascript:void(0);" onclick="triggerButtonById('imageInput')" draggable="false">
-                <!--<span style="font-weight:550;font-size:120%;">select image</span>
-                <div class="imgArea" style="display: block;" id="fakeImgArea"></div>-->
                 <div style="display: flex;width: 98%;flex-direction: row;justify-content: center;">
                     <div class="imgArea" id="imgArea" style="display: flex;align-items: center;justify-content: center;">
                         <div id="svgIcon">
@@ -83,13 +129,9 @@
                 </div>
                 </a>
             <input type="file" id="imageInput" accept="image/*" style="display:none;">
-
-                
-
-            
             <div style="margin-right: 8px;margin-top: 16px;">
                 <a href="javascript:void(0);" onclick="triggerButtonById('uploadButton')" class="CS-fakeBtn-black" id="fakeBtn">
-                    <span style="color: #fff;" id="fakeUpBtnText">Submit</span>
+                    <span><span style="color: #fff;" id="fakeUpBtnText">Submit</span><div class="lds-ripple" id="uploadingAnimation" style="display:none;"><div></div><div></div></div></span>
                 </a>
             </div>
             <button id="uploadButton" style="display:none;">Upload Image</button>
@@ -98,7 +140,23 @@
             <div class="subPart" id="resultPart" style="display:none;">
                 <div style="display: flex;justify-content: space-between;flex-wrap: wrap;flex-direction: row;">
                 <h3 style="margin:0;">Result:</h3>
-                <a href="javascript:void(0);" class="copyButtom" onclick="copyToClipboard()">copy</a></div>
+                <a href="javascript:void(0);" class="copyButtom" onclick="copyToClipboard()">
+                    
+                    <div id="beforeCopy">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                      <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                      <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                    </svg>
+                    </div>
+                    
+                    <div style="display:none;" id="afterCopy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                        </svg>
+                    </div>
+                    
+                </a></div>
                 <pre id="result"></pre>
             </div>
             
@@ -114,9 +172,13 @@
             const imageInput = document.getElementById('imageInput');
             const resultDiv = document.getElementById('result');
             const resultPart = document.getElementById('resultPart');
+            const uploadingAnimation = document.getElementById('uploadingAnimation');
+            
             fakeUpBtnText.innerHTML = ('Uploading');
+            uploadingAnimation.style.display = '';
 
             if (imageInput.files.length === 0) {
+                uploadingAnimation.style.display = 'none';
                 resultDiv.textContent = 'Please select an image.';
                 fakeUpBtnText.innerHTML = ('Submit');
                 return;
@@ -126,23 +188,26 @@
             const formData = new FormData();
             formData.append('image', selectedImage);
 
-            fetch('api.php', {
+            fetch('https://tgph-uploader--labs.cyberrain.dev/api.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
                 if (data.includes("error")) {
+                    uploadingAnimation.style.display = 'none';
                     resultPart.style.display = 'block';
                     fakeUpBtnText.innerHTML = ('Submit');
                     resultDiv.textContent = 'Failed to upload. Error:' + data + 'It\'s Telegraph server\'s fault.';
                 } else {
+                    uploadingAnimation.style.display = 'none';
                     resultPart.style.display = 'block';
                     fakeUpBtnText.innerHTML = ('Submit');
                     resultDiv.textContent = 'https://i1.wp.com/telegra.ph' + data;
                 }
             })
             .catch(error => {
+                uploadingAnimation.style.display = 'none';
                 resultPart.style.display = 'block';
                 fakeUpBtnText.innerHTML = ('Submit');
                 resultDiv.textContent = 'An error occurred while uploading the image.';
@@ -215,8 +280,21 @@
         
           // 移除临时文本区域元素
           document.body.removeChild(tempTextArea);
+        
+          // 隐藏beforeCopy标签
+          var beforeCopyTag = document.getElementById("beforeCopy");
+          beforeCopyTag.style.display = "none";
+        
+          // 显示afterCopy标签
+          var afterCopyTag = document.getElementById("afterCopy");
+          afterCopyTag.style.display = "";
+        
+          // 1秒后恢复原状
+          setTimeout(function () {
+            beforeCopyTag.style.display = "";
+            afterCopyTag.style.display = "none";
+          }, 1000);
         }
-
     </script>
     </div>
 </body>
