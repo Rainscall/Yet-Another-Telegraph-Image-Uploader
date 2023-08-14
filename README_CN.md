@@ -27,9 +27,7 @@
 3. 确保您的站点启用了 PHP 7.4。
 4. 就这样！安装现在已经完成。
 
-## 截图预览
-
-![beforeUpload](https://i1.wp.com/telegra.ph/file/356b5a49f368a25c3b891.png)
-![afterUpload](https://i1.wp.com/telegra.ph/file/799ea87968ce75d9efd0b.png)
+## Demo
+[https://yatiu--labs.cyberrain.dev/](https://yatiu--labs.cyberrain.dev/)
 
 Happy uploading!
