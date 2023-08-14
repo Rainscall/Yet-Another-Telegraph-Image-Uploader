@@ -38,7 +38,7 @@ function extractPathFromURL($url) {
 }
 
 
-header('Access-Control-Allow-Origin:https://tgph-uploader--labs.cyberrain.dev'); 
+header('Access-Control-Allow-Origin:*'); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     // 定义Python脚本路径和上传文件路径
