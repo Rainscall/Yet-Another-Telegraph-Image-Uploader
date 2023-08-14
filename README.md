@@ -22,7 +22,7 @@ Before installing Yet Another Telegraph Image Uploader, please make sure you hav
 
 Follow these steps to install the project:
 
-1. Clone the repository: `git clone https://github.com/Ashes26/Yet-Another-Telegraph-Image-Uploader.git`
+1. Clone the repository: `git clone https://github.com/Rainscall/Yet-Another-Telegraph-Image-Uploader.git`
 2. Set up your web server to point to the cloned directory.
 3. Ensure that PHP 7.4 is enabled for your site.
 4. That's it! The installation is now complete.
