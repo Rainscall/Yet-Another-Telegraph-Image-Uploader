@@ -1,8 +1,8 @@
-# Yet Another Telegraph Image Uploader Documentation
+# Yet-Another-Telegraph-Image-Uploader
 
 ## Introduction
 
-Welcome to the documentation for **Yet Another Telegraph Image Uploader**! This image uploader is designed to provide a seamless way for users to upload their images and store them on the Telegraph server. This document will give you an overview of the project and its installation requirements.
+Welcome to the documentation for **Yet-Another-Telegraph-Image-Uploader**! This image uploader is designed to provide a seamless way for users to upload their images and store them on the Telegraph server. This document will give you an overview of the project and its installation requirements.
 
 ## Features
 
