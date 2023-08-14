@@ -1,3 +1,4 @@
+ENGLISH | [中文](./README_CN.md)
 # Yet-Another-Telegraph-Image-Uploader
 
 ## Introduction
