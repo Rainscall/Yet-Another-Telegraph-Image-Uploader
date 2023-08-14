@@ -22,7 +22,7 @@
 
 按照以下步骤安装项目：
 
-1. 克隆存储库：`git clone https://github.com/Ashes26/Yet-Another-Telegraph-Image-Uploader.git`
+1. 克隆存储库：`git clone https://github.com/Rainscall/Yet-Another-Telegraph-Image-Uploader.git`
 2. 配置您的网络服务器以指向克隆的目录。
 3. 确保您的站点启用了 PHP 7.4。
 4. 就这样！安装现在已经完成。
