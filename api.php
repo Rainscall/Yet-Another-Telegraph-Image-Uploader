@@ -41,7 +41,6 @@ function extractPathFromURL($url) {
 header('Access-Control-Allow-Origin:*'); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
-    // 定义Python脚本路径和上传文件路径
     $uploadedImagePath = $_FILES['image']['tmp_name'];
     $output = postImageToServer($uploadedImagePath);
     // 删除上传的图片
