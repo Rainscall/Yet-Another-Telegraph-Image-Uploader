@@ -28,6 +28,6 @@ Follow these steps to install the project:
 4. That's it! The installation is now complete.
 
 ## Demo
-[https://yatiu--labs.cyberrain.dev/](https://yatiu--labs.cyberrain.dev/)https://yatiu--labs.cyberrain.dev/
+[https://yatiu--labs.cyberrain.dev/](https://yatiu--labs.cyberrain.dev/)
 
 Happy uploading!
