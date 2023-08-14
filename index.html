@@ -126,7 +126,7 @@
             const formData = new FormData();
             formData.append('image', selectedImage);
 
-            fetch('https://tgph-uploader--labs.cyberrain.dev/api.php', {
+            fetch('api.php', {
                 method: 'POST',
                 body: formData
             })
